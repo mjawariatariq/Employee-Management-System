@@ -1,0 +1,47 @@
+package employeemanagementsystem;
+
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.DriverManager;
+
+public class conn implements AutoCloseable {
+
+    private Connection connection;
+    Statement statement;
+
+    public conn() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/employeemanagement", "root", "12345");
+            statement = connection.createStatement();
+        } catch (ClassNotFoundException e) {
+            System.err.println("JDBC driver not found: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Error establishing connection: " + e.getMessage());
+        }
+    }
+
+    public Statement getStatement() {
+        return statement;
+    }
+
+    public PreparedStatement prepareStatement(String query) throws SQLException {
+        return connection.prepareStatement(query);
+    }
+
+    @Override
+    public void close() {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error closing connection: " + e.getMessage());
+        }
+    }
+}

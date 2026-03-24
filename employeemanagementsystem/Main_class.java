@@ -1,0 +1,147 @@
+package employeemanagementsystem;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Main_class extends JFrame {
+
+    Main_class() {
+
+        setSize(1120, 630);
+        setLocation(250, 100);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/home.jpg"));
+        Image i2 = i1.getImage().getScaledInstance(1120, 630, Image.SCALE_DEFAULT);
+        ImageIcon i3 = new ImageIcon(i2);
+        JLabel img = new JLabel(i3);
+        img.setBounds(0, 0, 1120, 630);
+        add(img);
+
+        JLabel heading = new JLabel("Employee Management System");
+        heading.setBounds(340, 155, 400, 40);
+        heading.setFont(new Font("Raleway", Font.BOLD, 25));
+        img.add(heading);
+
+        JButton add = new JButton("Add Employee");
+        add.setBounds(230, 270, 150, 40);
+        add.setForeground(Color.WHITE);
+        add.setBackground(Color.black);
+        img.add(add);
+
+        JButton view = new JButton("View Employee");
+        view.setBounds(440, 270, 150, 40);
+        view.setForeground(Color.WHITE);
+        view.setBackground(Color.black);
+        img.add(view);
+
+        JButton update = new JButton("Update Employee");
+        update.setBounds(650, 270, 150, 40);
+        update.setForeground(Color.WHITE);
+        update.setBackground(Color.black);
+        img.add(update);
+
+        JButton rem = new JButton("Remove Employee");
+        rem.setBounds(335, 370, 150, 40);
+        rem.setForeground(Color.WHITE);
+        rem.setBackground(Color.black);
+        img.add(rem);
+
+        JButton attendance = new JButton("Attendance Management");
+        attendance.setBounds(545, 370, 150, 40);
+        attendance.setForeground(Color.WHITE);
+        attendance.setBackground(Color.black);
+        img.add(attendance);
+
+        JButton attendanceReport = new JButton("Attendance Report");
+        attendanceReport.setBounds(230, 470, 150, 40);
+        attendanceReport.setForeground(Color.WHITE);
+        attendanceReport.setBackground(Color.black);
+        img.add(attendanceReport);
+
+        JButton updateAttendance = new JButton("Update Attendance");
+        updateAttendance.setBounds(440, 470, 150, 40);
+        updateAttendance.setForeground(Color.WHITE);
+        updateAttendance.setBackground(Color.black);
+        img.add(updateAttendance);
+
+        JButton removeAttendance = new JButton("Remove Attendance");
+        removeAttendance.setBounds(650, 470, 150, 40);
+        removeAttendance.setForeground(Color.WHITE);
+        removeAttendance.setBackground(Color.black);
+        img.add(removeAttendance);
+
+        add.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddEmployee();
+                setVisible(false);
+            }
+        });
+
+        view.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new View_Employee();
+                setVisible(false);
+            }
+        });
+
+        update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UpdateEmployee();
+                setVisible(false);
+            }
+        });
+
+        rem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RemoveEmployee();
+                setVisible(false);
+            }
+        });
+
+        attendance.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AttendanceManagement();
+                setVisible(false);
+            }
+        });
+
+        attendanceReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AttendanceReport();
+                setVisible(false);
+            }
+        });
+
+        updateAttendance.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Update_AttendanceReport();
+                setVisible(false);
+            }
+        });
+
+        removeAttendance.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RemoveAttendance();
+                setVisible(false);
+            }
+        });
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new Main_class();
+    }
+}

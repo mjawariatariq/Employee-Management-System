@@ -1,0 +1,81 @@
+package employeemanagementsystem;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+
+public class RemoveEmployee extends JFrame implements ActionListener {
+
+    Choice choiceEMPID;
+    JButton delete, back;
+
+    RemoveEmployee() {
+        JLabel label = new JLabel("Employee ID");
+        label.setBounds(50, 50, 100, 30);
+        label.setFont(new Font("Tahoma", Font.BOLD, 15));
+        add(label);
+
+        choiceEMPID = new Choice();
+        choiceEMPID.setBounds(200, 50, 150, 30);
+        add(choiceEMPID);
+
+        try {
+            conn c = new conn();
+            ResultSet resultSet = c.statement.executeQuery("select empId from employee");
+            while (resultSet.next()) {
+                choiceEMPID.add(resultSet.getString("empId"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        delete = new JButton("Delete");
+        delete.setBounds(80, 150, 100, 30);
+        delete.setBackground(Color.black);
+        delete.setForeground(Color.WHITE);
+        delete.addActionListener(this);
+        add(delete);
+
+        back = new JButton("Back");
+        back.setBounds(220, 150, 100, 30);
+        back.setBackground(Color.black);
+        back.setForeground(Color.WHITE);
+        back.addActionListener(this);
+        add(back);
+
+        setSize(400, 300);
+        setLocation(170, 150);
+        setLayout(null);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == delete) {
+            try {
+                conn c = new conn();
+                String empId = choiceEMPID.getSelectedItem();
+
+                String deleteEmployeeQuery = "DELETE FROM employee WHERE empId = '" + empId + "'";
+                c.statement.executeUpdate(deleteEmployeeQuery);
+
+                String deleteAttendanceQuery = "DELETE FROM attendance WHERE empId = '" + empId + "'";
+                c.statement.executeUpdate(deleteAttendanceQuery);
+
+                JOptionPane.showMessageDialog(null, "Employee and Attendance Records Deleted Successfully");
+                setVisible(false);
+                new Main_class();
+            } catch (Exception E) {
+                E.printStackTrace();
+            }
+        } else if (e.getSource() == back) {
+            setVisible(false);
+        }
+    }
+
+    public static void main(String[] args) {
+        new RemoveEmployee();
+    }
+}
